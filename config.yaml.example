@@ -1,0 +1,37 @@
+# paper-tracker configuration file
+# Copy this to ~/.paper-tracker/config.yaml and customize
+
+# API Keys (optional - can also use ANTHROPIC_API_KEY environment variable)
+# anthropic_api_key: sk-ant-...
+
+# ArXiv categories to track
+categories:
+  - cs.AI  # Artificial Intelligence
+  - cs.LG  # Machine Learning
+  - cs.CL  # Computation and Language
+  - cs.SE  # Software Engineering
+  - cs.CR  # Cryptography and Security
+
+# Keywords to filter papers (leave empty to track all papers)
+# Papers matching ANY keyword will be tracked
+keywords:
+  - "transformer"
+  - "large language model"
+  - "LLM"
+  - "diffusion"
+  - "reinforcement learning"
+
+# Data directory (default: ~/.paper-tracker/data)
+# data_dir: /path/to/data
+
+# Reports directory (default: ~/.paper-tracker/reports)
+# reports_dir: /path/to/reports
+
+# ArXiv API URL (default: http://export.arxiv.org/api/query)
+# arxiv_base_url: http://export.arxiv.org/api/query
+
+# Maximum papers to summarize in one batch (default: 10)
+# max_papers_per_batch: 10
+
+# Claude model for summarization (default: claude-sonnet-4-6)
+# summary_model: claude-sonnet-4-6
