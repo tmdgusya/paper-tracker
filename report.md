@@ -1,6 +1,7 @@
-# 📄 Paper Tracker Daily Report
+# 📄 Paper Tracker Report
 
-**Date:** 2026-02-26
+**Report Period:** 2023-01-15 ~ 2025-02-21
+**Generated:** 2026-02-26
 
 **총 논문 수:** 5개
 
