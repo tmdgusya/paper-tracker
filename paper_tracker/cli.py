@@ -135,12 +135,14 @@ def fetch(
     import asyncio
     from datetime import date as dt_date
     from datetime import timedelta
-    
+
+    from paper_tracker.dateutil import get_current_date
+
     if date:
         fetch_date = dt_date.fromisoformat(date)
     else:
         # Default to yesterday (cronjob runs today to fetch yesterday's papers)
-        fetch_date = dt_date.today() - timedelta(days=1)
+        fetch_date = get_current_date() - timedelta(days=1)
 
     console.print(
         Panel.fit(
@@ -282,7 +284,7 @@ def summarize(
     "--date",
     "-d",
     type=str,
-    help="Date for report (YYYY-MM-DD). Defaults to today.",
+    help="Date for report (YYYY-MM-DD). Defaults to yesterday.",
 )
 @click.option(
     "--send",
@@ -305,7 +307,7 @@ def report(
     """Generate daily report."""
     settings = ctx.obj["settings"]
 
-    # Parse date, or use today.
+    # Parse date, or default to yesterday (matching fetch convention).
     if date:
         try:
             report_date = datetime.strptime(date, "%Y-%m-%d").date()
@@ -313,10 +315,14 @@ def report(
             console.print("[red]Invalid date format. Use YYYY-MM-DD[/red]")
             sys.exit(1)
     else:
-        # Use today's date from system
-        from datetime import date as dt_date
-        report_date = dt_date.today()
-        console.print(f"[dim]Using today's date: {report_date.isoformat()}[/dim]")
+        # Default to yesterday: fetch stores papers with yesterday's published_date,
+        # so the report must query the same date to find them.
+        from datetime import timedelta
+
+        from paper_tracker.dateutil import get_current_date
+
+        report_date = get_current_date() - timedelta(days=1)
+        console.print(f"[dim]Using yesterday's date: {report_date.isoformat()}[/dim]")
 
     console.print(
         Panel.fit(
