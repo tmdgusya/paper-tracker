@@ -4,6 +4,7 @@ from datetime import date
 from pathlib import Path
 from typing import Optional
 
+from paper_tracker.dateutil import get_current_date
 from paper_tracker.store.database import Paper
 
 
@@ -32,7 +33,7 @@ class ReportGenerator:
             Markdown report content
         """
         if target_date is None:
-            target_date = date.today()
+            target_date = get_current_date()
 
         # Sort papers by relevance score
         sorted_papers = sorted(
@@ -87,7 +88,7 @@ class ReportGenerator:
 
         # Footer
         lines.append("---\n")
-        lines.append(f"*Report generated on {date.today().isoformat()}*\n")
+        lines.append(f"*Report generated on {get_current_date().isoformat()}*\n")
         lines.append("*Powered by paper-tracker*")
 
         return "".join(lines)
@@ -107,7 +108,7 @@ class ReportGenerator:
             Path to the saved report file
         """
         if target_date is None:
-            target_date = date.today()
+            target_date = get_current_date()
 
         content = self.generate_daily_report(papers, target_date)
         filename = f"{target_date.isoformat()}.md"
@@ -140,7 +141,7 @@ class ReportGenerator:
             Path to the report file
         """
         if target_date is None:
-            target_date = date.today()
+            target_date = get_current_date()
         return self.reports_dir / f"{target_date.isoformat()}.md"
 
     def report_exists(self, target_date: Optional[date] = None) -> bool:

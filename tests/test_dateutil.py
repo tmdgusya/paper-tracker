@@ -3,7 +3,7 @@
 import datetime
 from unittest.mock import MagicMock, patch
 
-from paper_tracker.dateutil import get_current_date, _MAX_SKEW
+from paper_tracker.dateutil import get_current_date, get_current_datetime, _MAX_SKEW
 
 
 class TestGetCurrentDate:
@@ -60,3 +60,44 @@ class TestGetCurrentDate:
 
         result = get_current_date()
         assert isinstance(result, datetime.date)
+
+
+class TestGetCurrentDatetime:
+    """Test cases for get_current_datetime()."""
+
+    @patch("paper_tracker.dateutil.httpx.head")
+    def test_returns_server_datetime_when_clock_ahead(self, mock_head: MagicMock) -> None:
+        """When local clock is far in the future, use server datetime."""
+        server_time = "Tue, 22 Jul 2025 12:00:00 GMT"
+        mock_resp = MagicMock()
+        mock_resp.headers = {"date": server_time}
+        mock_head.return_value = mock_resp
+
+        fake_local = datetime.datetime(2026, 2, 26, 12, 0, 0, tzinfo=datetime.timezone.utc)
+        with patch("paper_tracker.dateutil.datetime") as mock_dt:
+            mock_dt.datetime.now.return_value = fake_local
+            mock_dt.timezone = datetime.timezone
+            mock_dt.timedelta = datetime.timedelta
+            result = get_current_datetime()
+
+        assert isinstance(result, datetime.datetime)
+        assert result.year == 2025
+        assert result.month == 7
+        assert result.day == 22
+
+    @patch("paper_tracker.dateutil.httpx.head")
+    def test_returns_utc_aware_datetime(self, mock_head: MagicMock) -> None:
+        """Returned datetime should be timezone-aware (UTC)."""
+        server_time = "Tue, 22 Jul 2025 12:00:00 GMT"
+        mock_resp = MagicMock()
+        mock_resp.headers = {"date": server_time}
+        mock_head.return_value = mock_resp
+
+        fake_local = datetime.datetime(2025, 7, 22, 14, 0, 0, tzinfo=datetime.timezone.utc)
+        with patch("paper_tracker.dateutil.datetime") as mock_dt:
+            mock_dt.datetime.now.return_value = fake_local
+            mock_dt.timezone = datetime.timezone
+            mock_dt.timedelta = datetime.timedelta
+            result = get_current_datetime()
+
+        assert result.tzinfo is not None

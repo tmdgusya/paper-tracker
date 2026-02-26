@@ -8,6 +8,7 @@ from datetime import datetime
 from pathlib import Path
 from typing import Any
 
+from paper_tracker.dateutil import get_current_datetime
 from paper_tracker.fetcher.arxiv import Paper
 
 
@@ -107,7 +108,7 @@ class Summarizer:
                         main_contributions=[],
                         relevance_score=0.0,
                         summary_text=f"Error generating summary: {e}",
-                        generated_at=datetime.now(),
+                        generated_at=get_current_datetime(),
                     )
                 )
 
@@ -224,7 +225,7 @@ Respond ONLY with valid JSON, no additional text."""
                 main_contributions=data.get("main_contributions", []),
                 relevance_score=float(data.get("relevance_score", 0.0)),
                 summary_text=data.get("summary_text", ""),
-                generated_at=datetime.now(),
+                generated_at=get_current_datetime(),
             )
 
         except (json.JSONDecodeError, ValueError) as e:
@@ -235,7 +236,7 @@ Respond ONLY with valid JSON, no additional text."""
                 main_contributions=[],
                 relevance_score=0.0,
                 summary_text=response[:500],  # Truncate if too long
-                generated_at=datetime.now(),
+                generated_at=get_current_datetime(),
             )
 
     async def close(self) -> None:
