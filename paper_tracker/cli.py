@@ -303,7 +303,7 @@ def report(
     """Generate daily report."""
     settings = ctx.obj["settings"]
 
-    # Parse date, or derive from the most recent paper in the DB.
+    # Parse date, or use today.
     if date:
         try:
             report_date = datetime.strptime(date, "%Y-%m-%d").date()
@@ -311,16 +311,10 @@ def report(
             console.print("[red]Invalid date format. Use YYYY-MM-DD[/red]")
             sys.exit(1)
     else:
-        from paper_tracker.store import get_latest_paper_date
-
-        report_date = get_latest_paper_date(settings.db_path)
-        if report_date is None:
-            console.print(
-                "[yellow]No papers in database. "
-                "Run 'paper-tracker fetch' first or specify --date.[/yellow]"
-            )
-            return
-        console.print(f"[dim]Using most recent paper date: {report_date.isoformat()}[/dim]")
+        # Use today's date from system
+        from datetime import date as dt_date
+        report_date = dt_date.today()
+        console.print(f"[dim]Using today's date: {report_date.isoformat()}[/dim]")
 
     console.print(
         Panel.fit(
