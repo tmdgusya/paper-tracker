@@ -5,7 +5,7 @@ from typing import Optional
 
 from paper_tracker.store.database import Database, Paper
 
-__all__ = ["Database", "Paper", "init_db", "get_pending_papers", "save_papers", "update_paper_summary", "get_papers_by_date"]
+__all__ = ["Database", "Paper", "init_db", "get_pending_papers", "save_papers", "update_paper_summary", "get_papers_by_date", "get_latest_paper_date"]
 
 
 def init_db(db_path: Path | str) -> Database:
@@ -125,3 +125,16 @@ def get_papers_by_date(db_path: Path | str, target_date, status: Optional[str] =
     """
     db = Database(db_path)
     return db.get_papers_by_date(target_date, status)
+
+
+def get_latest_paper_date(db_path: Path | str):
+    """Get the most recent published_date from the database.
+
+    Args:
+        db_path: Path to the database file
+
+    Returns:
+        Most recent date, or None if no papers exist
+    """
+    db = Database(db_path)
+    return db.get_latest_paper_date()

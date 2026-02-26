@@ -297,6 +297,30 @@ class TestDatabase:
         papers = temp_db.get_all_papers(limit=3)
         assert len(papers) == 3
 
+    def test_get_latest_paper_date_empty(self, temp_db: Database) -> None:
+        """Test get_latest_paper_date on an empty database returns None."""
+        result = temp_db.get_latest_paper_date()
+        assert result is None
+
+    def test_get_latest_paper_date(self, temp_db: Database) -> None:
+        """Test get_latest_paper_date returns the most recent date."""
+        for i, day in enumerate([5, 15, 10]):
+            paper = Paper(
+                id=f"2301.0000{i}",
+                title=f"Paper {i}",
+                authors=f"Author {i}",
+                abstract=f"Abstract {i}",
+                url=f"https://arxiv.org/abs/2301.0000{i}",
+                pdf_url=f"https://arxiv.org/pdf/2301.0000{i}.pdf",
+                published_date=datetime.date(2025, 7, day),
+                fetched_date=datetime.date(2025, 7, day),
+                status="pending",
+            )
+            temp_db.add_paper(paper)
+
+        result = temp_db.get_latest_paper_date()
+        assert result == datetime.date(2025, 7, 15)
+
     def test_context_manager(self, temp_dir: Path) -> None:
         """Test using Database as a context manager."""
         db_path = temp_dir / "test_context.db"

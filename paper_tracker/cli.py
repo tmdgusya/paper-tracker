@@ -146,10 +146,13 @@ def fetch(
         from datetime import date as dt_date
         from paper_tracker.fetcher import fetch_papers
 
-        # Parse date if provided
+        # Parse date if provided; otherwise fetch without date filter
+        # so arXiv returns the most recent papers by relevance.
         fetch_date = None
         if date:
             fetch_date = dt_date.fromisoformat(date)
+        else:
+            console.print("[dim]No date specified — fetching most recent papers[/dim]")
 
         console.print("[dim]Fetching papers from arXiv...[/dim]")
         papers = asyncio.run(fetch_papers(
@@ -300,7 +303,7 @@ def report(
     """Generate daily report."""
     settings = ctx.obj["settings"]
 
-    # Parse date or use today
+    # Parse date, or derive from the most recent paper in the DB.
     if date:
         try:
             report_date = datetime.strptime(date, "%Y-%m-%d").date()
@@ -308,7 +311,16 @@ def report(
             console.print("[red]Invalid date format. Use YYYY-MM-DD[/red]")
             sys.exit(1)
     else:
-        report_date = datetime.now().date()
+        from paper_tracker.store import get_latest_paper_date
+
+        report_date = get_latest_paper_date(settings.db_path)
+        if report_date is None:
+            console.print(
+                "[yellow]No papers in database. "
+                "Run 'paper-tracker fetch' first or specify --date.[/yellow]"
+            )
+            return
+        console.print(f"[dim]Using most recent paper date: {report_date.isoformat()}[/dim]")
 
     console.print(
         Panel.fit(

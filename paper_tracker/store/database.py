@@ -303,6 +303,22 @@ class Database:
         conn.commit()
         return cursor.rowcount
 
+    def get_latest_paper_date(self) -> Optional[date]:
+        """Get the most recent published_date in the database.
+
+        Returns:
+            The most recent date, or None if the database is empty.
+        """
+        conn = self.connect()
+        cursor = conn.cursor()
+        cursor.execute(
+            "SELECT MAX(published_date) AS max_date FROM papers"
+        )
+        row = cursor.fetchone()
+        if row and row["max_date"]:
+            return date.fromisoformat(row["max_date"])
+        return None
+
     def get_all_papers(self, limit: Optional[int] = None) -> list[Paper]:
         """Get all papers from database.
 
