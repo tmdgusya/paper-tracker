@@ -1,0 +1,200 @@
+{
+  "version": "1.0.0",
+  "lastScanned": 1772073938738,
+  "projectRoot": "/home/roachbot/.openclaw/workspace/paper-tracker",
+  "techStack": {
+    "languages": [],
+    "frameworks": [],
+    "packageManager": null,
+    "runtime": null
+  },
+  "build": {
+    "buildCommand": null,
+    "testCommand": null,
+    "lintCommand": null,
+    "devCommand": null,
+    "scripts": {}
+  },
+  "conventions": {
+    "namingStyle": null,
+    "importStyle": null,
+    "testPattern": null,
+    "fileOrganization": null
+  },
+  "structure": {
+    "isMonorepo": false,
+    "workspaces": [],
+    "mainDirectories": [],
+    "gitBranches": {
+      "defaultBranch": "main",
+      "branchingStrategy": null
+    }
+  },
+  "customNotes": [],
+  "directoryMap": {},
+  "hotPaths": [
+    {
+      "path": "",
+      "accessCount": 25,
+      "lastAccessed": 1772075652920,
+      "type": "directory"
+    },
+    {
+      "path": "paper_tracker/cli.py",
+      "accessCount": 17,
+      "lastAccessed": 1772075617371,
+      "type": "file"
+    },
+    {
+      "path": "tests/test_store.py",
+      "accessCount": 11,
+      "lastAccessed": 1772075535268,
+      "type": "file"
+    },
+    {
+      "path": "paper_tracker/config.py",
+      "accessCount": 8,
+      "lastAccessed": 1772074488238,
+      "type": "file"
+    },
+    {
+      "path": "pyproject.toml",
+      "accessCount": 5,
+      "lastAccessed": 1772074474084,
+      "type": "file"
+    },
+    {
+      "path": "paper_tracker/summarizer/claude.py",
+      "accessCount": 5,
+      "lastAccessed": 1772075231264,
+      "type": "file"
+    },
+    {
+      "path": "paper_tracker/__init__.py",
+      "accessCount": 4,
+      "lastAccessed": 1772074192919,
+      "type": "file"
+    },
+    {
+      "path": "tests/test_filter.py",
+      "accessCount": 4,
+      "lastAccessed": 1772075368486,
+      "type": "file"
+    },
+    {
+      "path": "tests/test_summarizer.py",
+      "accessCount": 4,
+      "lastAccessed": 1772075368809,
+      "type": "file"
+    },
+    {
+      "path": "paper_tracker/fetcher/__init__.py",
+      "accessCount": 4,
+      "lastAccessed": 1772075632500,
+      "type": "file"
+    },
+    {
+      "path": "paper_tracker/store/__init__.py",
+      "accessCount": 4,
+      "lastAccessed": 1772075632527,
+      "type": "file"
+    },
+    {
+      "path": "PLAN.md",
+      "accessCount": 3,
+      "lastAccessed": 1772074172450,
+      "type": "file"
+    },
+    {
+      "path": "paper_tracker/fetcher/filter.py",
+      "accessCount": 3,
+      "lastAccessed": 1772074676117,
+      "type": "file"
+    },
+    {
+      "path": "paper_tracker/store/database.py",
+      "accessCount": 3,
+      "lastAccessed": 1772074676180,
+      "type": "file"
+    },
+    {
+      "path": "paper_tracker/reporter/markdown.py",
+      "accessCount": 3,
+      "lastAccessed": 1772074690324,
+      "type": "file"
+    },
+    {
+      "path": "tests/test_reporter.py",
+      "accessCount": 3,
+      "lastAccessed": 1772075066091,
+      "type": "file"
+    },
+    {
+      "path": "INTEGRATION_TEST_RESULTS.md",
+      "accessCount": 3,
+      "lastAccessed": 1772075428321,
+      "type": "file"
+    },
+    {
+      "path": "paper_tracker/fetcher/arxiv.py",
+      "accessCount": 3,
+      "lastAccessed": 1772075596811,
+      "type": "file"
+    },
+    {
+      "path": "paper_tracker",
+      "accessCount": 3,
+      "lastAccessed": 1772075664618,
+      "type": "directory"
+    },
+    {
+      "path": "paper_tracker/reporter/__init__.py",
+      "accessCount": 2,
+      "lastAccessed": 1772074685990,
+      "type": "file"
+    },
+    {
+      "path": "paper_tracker/summarizer/__init__.py",
+      "accessCount": 2,
+      "lastAccessed": 1772074686019,
+      "type": "file"
+    },
+    {
+      "path": "tests/conftest.py",
+      "accessCount": 2,
+      "lastAccessed": 1772075041917,
+      "type": "file"
+    },
+    {
+      "path": "config.yaml.example",
+      "accessCount": 1,
+      "lastAccessed": 1772074165328,
+      "type": "file"
+    },
+    {
+      "path": "tests/test_fetcher.py",
+      "accessCount": 1,
+      "lastAccessed": 1772074825923,
+      "type": "file"
+    },
+    {
+      "path": "tests/__init__.py",
+      "accessCount": 1,
+      "lastAccessed": 1772075006821,
+      "type": "file"
+    },
+    {
+      "path": "tests/README.md",
+      "accessCount": 1,
+      "lastAccessed": 1772075099539,
+      "type": "file"
+    },
+    {
+      "path": "tests",
+      "accessCount": 1,
+      "lastAccessed": 1772075664596,
+      "type": "directory"
+    }
+  ],
+  "userDirectives": []
+}

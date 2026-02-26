@@ -160,7 +160,7 @@ Respond ONLY with valid JSON, no additional text."""
     async def _call_claude(self, prompt: str) -> str:
         """Call Claude Code as a subprocess.
 
-        Uses gt-switcher pattern: source gt.sh && gt g && claude --agent team 5:executor
+        Uses gt-switcher pattern: source gt.sh && gt c && claude --agent team 5:executor
 
         Args:
             prompt: Prompt to send to Claude
@@ -168,11 +168,11 @@ Respond ONLY with valid JSON, no additional text."""
         Returns:
             Claude's response text
         """
-        # Build the command using gt-switcher
+        # Build the command using gt-switcher (Claude native mode)
         cmd = [
             "bash",
             "-c",
-            f"source {self.gt_script_path} && gt g && echo '{prompt}' | claude --agent team '5:executor'",
+            f"source {self.gt_script_path} && gt c && echo '{prompt}' | claude --agent team '5:executor'",
         ]
 
         try:

@@ -1,0 +1,7 @@
+{
+  "tool_name": "Bash",
+  "tool_input_preview": "{\"command\":\"source .venv/bin/activate && paper-tracker fetch --dry-run --limit 5 2>&1\",\"description\":\"Test CLI fetch --dry-run command\"}",
+  "error": "Exit code 1\n╭───────────────────────────────────────────────╮\n│ Fetching Papers                               │\n│ Categories: cs.AI, cs.LG, cs.CL, cs.SE, cs.CR │\n│ Keywords: None                                │\n│ Limit: 5                                      │\n│ Mode: Dry run                                 │\n╰───────────────────────────────────────────────╯\nFetching papers from arXiv...\nError fetching papers: Server error '500 Internal Server Error' for url \n'https://export.arxiv.org/api/query...",
+  "timestamp": "2026-02-26T03:13:24.882Z",
+  "retry_count": 2
+}

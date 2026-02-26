@@ -85,13 +85,16 @@ class ArxivFetcher:
         Returns:
             List of Paper objects
         """
-        if date is None:
-            date = datetime.date.today()
-
-        # Build query for categories and date
+        # Build query for categories
         cat_query = " OR ".join(f"cat:{cat}" for cat in categories)
-        date_str = date.strftime("%Y%m%d")
-        query = f"({cat_query}) AND submittedDate:{date_str}*"
+        query = f"({cat_query})"
+        
+        # Add date filter if provided
+        if date is not None:
+            date_str = date.strftime("%Y%m%d")
+            next_date = date + datetime.timedelta(days=1)
+            next_date_str = next_date.strftime("%Y%m%d")
+            query += f" AND submittedDate:[{date_str} TO {next_date_str}]"
 
         # Build request parameters
         params = {

@@ -109,6 +109,12 @@ def init(ctx: click.Context) -> None:
     default=100,
     help="Maximum number of papers to fetch",
 )
+@click.option(
+    "--date",
+    "-d",
+    type=str,
+    help="Date to fetch papers for (YYYY-MM-DD)",
+)
 @click.pass_context
 def fetch(
     ctx: click.Context,
@@ -116,6 +122,7 @@ def fetch(
     categories: tuple[str, ...],
     keywords: tuple[str, ...],
     limit: int,
+    date: str | None,
 ) -> None:
     """Fetch papers from arXiv."""
     settings = ctx.obj["settings"]
@@ -136,13 +143,20 @@ def fetch(
 
     try:
         import asyncio
+        from datetime import date as dt_date
         from paper_tracker.fetcher import fetch_papers
+
+        # Parse date if provided
+        fetch_date = None
+        if date:
+            fetch_date = dt_date.fromisoformat(date)
 
         console.print("[dim]Fetching papers from arXiv...[/dim]")
         papers = asyncio.run(fetch_papers(
             categories=fetch_categories,
             keywords=fetch_keywords,
             limit=limit,
+            date=fetch_date,
         ))
 
         if dry_run:
