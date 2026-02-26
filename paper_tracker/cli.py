@@ -131,28 +131,30 @@ def fetch(
     fetch_categories = list(categories) if categories else settings.categories
     fetch_keywords = list(keywords) if keywords else settings.keywords
 
+    # Determine date first (before printing panel)
+    import asyncio
+    from datetime import date as dt_date
+    from datetime import timedelta
+    
+    if date:
+        fetch_date = dt_date.fromisoformat(date)
+    else:
+        # Default to yesterday (cronjob runs today to fetch yesterday's papers)
+        fetch_date = dt_date.today() - timedelta(days=1)
+
     console.print(
         Panel.fit(
             f"[bold blue]Fetching Papers[/bold blue]\n"
             f"Categories: {', '.join(fetch_categories)}\n"
             f"Keywords: {', '.join(fetch_keywords) if fetch_keywords else 'None'}\n"
             f"Limit: {limit}\n"
+            f"Date: {fetch_date.isoformat()}\n"
             f"Mode: {'Dry run' if dry_run else 'Save to DB'}"
         )
     )
 
     try:
-        import asyncio
-        from datetime import date as dt_date
         from paper_tracker.fetcher import fetch_papers
-
-        # Parse date if provided; otherwise fetch without date filter
-        # so arXiv returns the most recent papers by relevance.
-        fetch_date = None
-        if date:
-            fetch_date = dt_date.fromisoformat(date)
-        else:
-            console.print("[dim]No date specified — fetching most recent papers[/dim]")
 
         console.print("[dim]Fetching papers from arXiv...[/dim]")
         papers = asyncio.run(fetch_papers(
