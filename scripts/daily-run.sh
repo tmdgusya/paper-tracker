@@ -26,7 +26,7 @@ source "${VENV_DIR}/bin/activate"
 
 # Run the full pipeline: fetch → summarize → report
 cd "${PROJECT_DIR}"
-paper-tracker run --verbose 2>&1
+paper-tracker run 2>&1
 
 EXIT_CODE=$?
 
